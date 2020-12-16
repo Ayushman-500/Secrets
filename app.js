@@ -28,6 +28,13 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use(function(req,res,next){
+if(!req.session){
+    return next(new Error('Oh no')) //handle error
+}
+next() //otherwise continue
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
