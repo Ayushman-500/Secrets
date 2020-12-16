@@ -5,6 +5,6 @@ This website enables people to share their secrets anonymously among the registe
 Implemented authentication using encryption and then leveled it up using hashing and multiple salting rounds via bcrypt package.   <br />
 Used passport.js to add cookies and sessions. Implemented third party authentication (Google OAuth 2.0) to make the website more trustworthy and ease up sign in/up process.<br />
 
-Currently facing some issues while deploying, but this is how it looks like when run on local server.<br />
+Currently facing some issues while deploying, but this is how it looks like when run on localhost.<br />
 
 ![Demo](https://github.com/Ayushman-500/Ayushman-500/blob/master/Secrets-Website.gif)
