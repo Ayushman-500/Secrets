@@ -27,7 +27,6 @@ app.use(session({
     secure: true,
     maxAge:60000
   },
-  store: new MonogodbStore(),
   secret: "Our little secret.",
   resave: false,
   saveUninitialized: false
