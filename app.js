@@ -28,18 +28,12 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use(function(req,res,next){
-if(!req.session){
-    return next(new Error('Oh no')) //handle error
-}
-next() //otherwise continue
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-// "mongodb://localhost:27017/userDB"
-mongoose.connect("mongodb+srv://admin-ayushman:Test123@cluster0.5sdnh.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+
+
+mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new mongoose.Schema({
@@ -68,10 +62,12 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+// http://localhost:3000/auth/google/secrets
+
 passport.use(new GoogleStrategy({
     clientID:     process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/secrets",
+    callbackURL: "https://immense-journey-94133.herokuapp.com/auth/google/secrets",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
@@ -92,6 +88,12 @@ app.get('/auth/google',
 ));
 
 app.get( '/auth/google/secrets',
+    passport.authenticate( 'google', {
+      successRedirect: '/secrets',
+      failureRedirect: '/login'
+}));
+
+app.get("https://immense-journey-94133.herokuapp.com/auth/google/secrets",
     passport.authenticate( 'google', {
       successRedirect: '/secrets',
       failureRedirect: '/login'
@@ -183,11 +185,8 @@ app.post("/submit", function(req, res){
   });
 });
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
 
-app.listen(port, function(){
-    console.log("Server has started successfully!");
+
+app.listen(3000, function(){
+    console.log("Server started on port 3000");
 });
