@@ -6,6 +6,6 @@ I learned to build this website in [The Complete 2020 Web Development Bootcamp](
 - Used passport.js to add cookies and sessions. 
 - Implemented third party authentication (Google OAuth 2.0) to make the website more trustworthy and ease up sign in/up process.<br />
 
-Currently facing some issues while deploying, but this is how it looks like when run on localhost.<br />
+# Live on - https://immense-journey-94133.herokuapp.com/
 
 ![Demo](https://github.com/Ayushman-500/Ayushman-500/blob/master/Secrets-Website.gif)
