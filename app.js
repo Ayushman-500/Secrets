@@ -1,6 +1,5 @@
 //jshint esversion:6
 
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -10,11 +9,11 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+const dotenv = require('dotenv');
 
 
 const app = express();
-
-
+dotenv.config();
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -38,7 +37,7 @@ app.use(passport.session());
 
 // mongodb://localhost:27017/userDB
 
-mongoose.connect("mongodb+srv://admin-ayushman:Test123@cluster0.5sdnh.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGODB_CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const userSchema = new mongoose.Schema({
@@ -72,7 +71,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID:     process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://immense-journey-94133.herokuapp.com/auth/google/secrets",
+    callbackURL: "https://secrets-web-app-kgdg.onrender.com/auth/google/secrets",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
@@ -98,7 +97,7 @@ app.get( '/auth/google/secrets',
       failureRedirect: '/login'
 }));
 
-app.get("https://immense-journey-94133.herokuapp.com/auth/google/secrets",
+app.get("https://secrets-web-app-kgdg.onrender.com/auth/google/secrets",
     passport.authenticate( 'google', {
       successRedirect: '/secrets',
       failureRedirect: '/login'
